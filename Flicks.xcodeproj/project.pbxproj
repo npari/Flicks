@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0B782F976050F21E567C9B /* Pods_Flicks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EDE1BA6B4A5F342A2EDCA8 /* Pods_Flicks.framework */; };
 		E43EA5041E8C643F00E2F8C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43EA5031E8C643F00E2F8C5 /* AppDelegate.swift */; };
 		E43EA5091E8C643F00E2F8C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E43EA5071E8C643F00E2F8C5 /* Main.storyboard */; };
 		E43EA50B1E8C643F00E2F8C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E43EA50A1E8C643F00E2F8C5 /* Assets.xcassets */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		525FAC0B0C45D701802222B5 /* Pods-Flicks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flicks/Pods-Flicks.debug.xcconfig"; sourceTree = "<group>"; };
+		58EDE1BA6B4A5F342A2EDCA8 /* Pods_Flicks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flicks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8DE76A367A0E0BBCCFB9C49 /* Pods-Flicks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flicks/Pods-Flicks.release.xcconfig"; sourceTree = "<group>"; };
 		E43EA5001E8C643F00E2F8C5 /* Flicks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E43EA5031E8C643F00E2F8C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E43EA5081E8C643F00E2F8C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC0B782F976050F21E567C9B /* Pods_Flicks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		78E1F9F087F8CD16801C2BE5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				58EDE1BA6B4A5F342A2EDCA8 /* Pods_Flicks.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB0801DF506BA8AF12A7458E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				525FAC0B0C45D701802222B5 /* Pods-Flicks.debug.xcconfig */,
+				B8DE76A367A0E0BBCCFB9C49 /* Pods-Flicks.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E43EA4F71E8C643F00E2F8C5 = {
 			isa = PBXGroup;
 			children = (
 				E43EA5021E8C643F00E2F8C5 /* Flicks */,
 				E43EA5011E8C643F00E2F8C5 /* Products */,
+				DB0801DF506BA8AF12A7458E /* Pods */,
+				78E1F9F087F8CD16801C2BE5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E43EA5121E8C643F00E2F8C5 /* Build configuration list for PBXNativeTarget "Flicks" */;
 			buildPhases = (
+				12F9399B35B3E73D0343581B /* [CP] Check Pods Manifest.lock */,
 				E43EA4FC1E8C643F00E2F8C5 /* Sources */,
 				E43EA4FD1E8C643F00E2F8C5 /* Frameworks */,
 				E43EA4FE1E8C643F00E2F8C5 /* Resources */,
+				7C6DE75CA2A7AB0F75EC2B8C /* [CP] Embed Pods Frameworks */,
+				FBBC2D41F691CA653AA66A17 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		12F9399B35B3E73D0343581B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7C6DE75CA2A7AB0F75EC2B8C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flicks/Pods-Flicks-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBBC2D41F691CA653AA66A17 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flicks/Pods-Flicks-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E43EA4FC1E8C643F00E2F8C5 /* Sources */ = {
@@ -259,6 +334,7 @@
 		};
 		E43EA5131E8C643F00E2F8C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 525FAC0B0C45D701802222B5 /* Pods-Flicks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 48HK3M9PGT;
@@ -272,6 +348,7 @@
 		};
 		E43EA5141E8C643F00E2F8C5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8DE76A367A0E0BBCCFB9C49 /* Pods-Flicks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 48HK3M9PGT;
