@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -66,7 +67,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,29 +80,37 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath)
+        let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
         let movie = movies![indexPath.row]
+        
         let title = movie["title"] as! String
+        movieCell.titleLabel?.text = title
         
-        cell.textLabel?.text = title
-        print("title")
+        let overview = movie["overview"] as! String
+        movieCell.overviewLabel?.text = overview
+
+        let baseURL = "https://image.tmdb.org/t/p/w500"
+        if let posterPath = movie["poster_path"] as? String {
+             let imageURL = NSURL(string: baseURL + posterPath)
+             movieCell.posterView.setImageWith(imageURL as! URL)
+        }
         
-        return cell
+        return movieCell
     }
     
-    
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        let cell = sender as! UITableViewCell
+        let indexPath = moviesTableView.indexPath(for: cell)
+        let movie = movies?[(indexPath?.row)!]
+        
+        let detailViewController = segue.destination as! DetailViewController
+        detailViewController.movie = movie
+        
+        print("prepare for segue called")
+
     }
-    */
+    
 
 }
