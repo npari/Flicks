@@ -11,6 +11,7 @@ import UIKit
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var moviesTableView: UITableView!
+    var movies: [NSDictionary]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,49 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         //Setting data source and delegate for table to know the cell as data
         moviesTableView.dataSource = self
         moviesTableView.delegate = self
+        
+        let apiKey = "f8634817a9438344d16fa643adb26970"
+        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                print("ERROR!!!!")
+            } else if let data = data,
+                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
+                print("SUCCESS!!!!")
+                print(dataDictionary)
+                self.movies = dataDictionary["results"] as? [NSDictionary]
+                self.moviesTableView.reloadData()
+            }
+        }
+        task.resume()
+
+        
+    }
+    
+    class func fetchMovies(successCallBack: @escaping (NSDictionary) -> (), errorCallBack: ((Error?) -> ())?) {
+        let apiKey = "f8634817a9438344d16fa643adb26970"
+        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if let error = error {
+                errorCallBack?(error)
+            } else if let data = data,
+                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
+                //print(dataDictionary)
+                successCallBack(dataDictionary)
+            }
+        }
+        task.resume()
+    }
+    
+    func successCallBack() {
+        
+    }
+    func errorCallBack() {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,21 +69,28 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-    //Mandatory methods from UITableViewDataSource
-    //This method needs the number of rows that should be in the table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 20
+        var moviesCount = 0
+        if let movies = movies {
+            moviesCount = movies.count
+        }
+        return moviesCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath)
-        cell.textLabel?.text = "Row \(indexPath.row)"
-        print("Row \(indexPath.row)")
+        
+        let movie = movies![indexPath.row]
+        let title = movie["title"] as! String
+        
+        cell.textLabel?.text = title
+        print("title")
         
         return cell
     }
+    
     
 
     
