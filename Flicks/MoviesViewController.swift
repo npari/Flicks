@@ -13,6 +13,9 @@ import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var moviesTableView: UITableView!
+    @IBOutlet weak var networkErrorLabel: UILabel!
+    //fa-exclamation-triangle [&#xf071;]
+    
     var movies: [NSDictionary]?
     var refreshControl: UIRefreshControl!
     
@@ -25,7 +28,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         //Setting data source and delegate for table to know the cell as data
         moviesTableView.dataSource = self
         moviesTableView.delegate = self
-        
+        self.networkErrorLabel.isHidden=true
         getMovies()
         
     }
@@ -45,15 +48,25 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             
             if error != nil {
                 print("ERROR!!!!")
+                self.networkErrorLabel.isHidden=false
+
             } else if let data = data,
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                 print("SUCCESS!!!!")
                 print(dataDictionary)
                 self.movies = dataDictionary["results"] as? [NSDictionary]
                 self.moviesTableView.reloadData()
-                // Tell the refreshControl to stop spinning
-                self.refreshControl.endRefreshing()
+                
+//                // Tell the refreshControl to stop spinning
+//                self.refreshControl.endRefreshing()
+                
+                // Tell
+                self.networkErrorLabel.isHidden=true
             }
+            
+            // Tell the refreshControl to stop spinning
+            self.refreshControl.endRefreshing()
+
         }
         task.resume()
 
@@ -94,10 +107,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         task.resume()
     }
     
-    func successCallBack() {
+    func successCallBack(dataDictionary: NSDictionary) {
         
     }
-    func errorCallBack() {
+    func errorCallBack(error: Error) {
         
     }
 
