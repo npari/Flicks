@@ -13,14 +13,23 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet weak var moviesTableView: UITableView!
     var movies: [NSDictionary]?
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Add a pull to refresh - refresh control
+        addRefreshControl()
 
         //Setting data source and delegate for table to know the cell as data
         moviesTableView.dataSource = self
         moviesTableView.delegate = self
         
+        getMovies()
+        
+    }
+    
+    func getMovies() {
         let apiKey = "f8634817a9438344d16fa643adb26970"
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -34,11 +43,30 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 print(dataDictionary)
                 self.movies = dataDictionary["results"] as? [NSDictionary]
                 self.moviesTableView.reloadData()
+                // Tell the refreshControl to stop spinning
+                self.refreshControl.endRefreshing()
             }
         }
         task.resume()
 
+    }
+    
+    func addRefreshControl() {
         
+        //Initialize a UIRefreshControl
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(MoviesViewController.refreshControlAction), for: UIControlEvents.valueChanged)
+        
+        //add refresh control to table view
+        moviesTableView.insertSubview(refreshControl, at: 0)
+    }
+    
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+    func refreshControlAction() {
+        getMovies()
     }
     
     class func fetchMovies(successCallBack: @escaping (NSDictionary) -> (), errorCallBack: ((Error?) -> ())?) {
@@ -111,6 +139,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         print("prepare for segue called")
 
     }
+    
+    
     
 
 }
