@@ -46,20 +46,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             MBProgressHUD.hide(for: self.view, animated: true)
             
             if error != nil {
-                print("ERROR!!!!")
                 self.networkErrorLabel.isHidden=false
 
             } else if let data = data,
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                print("SUCCESS!!!!")
-                print(dataDictionary)
                 self.movies = dataDictionary["results"] as? [NSDictionary]
                 self.moviesTableView.reloadData()
-                
-//                // Tell the refreshControl to stop spinning
-//                self.refreshControl.endRefreshing()
-                
-                // Tell
+            
+                //Hiding the Network error label if we get data from api
                 self.networkErrorLabel.isHidden=true
             }
             
@@ -105,7 +99,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-        
         let movie = movies![indexPath.row]
         
         let title = movie["title"] as! String
@@ -117,9 +110,26 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let baseURL = "https://image.tmdb.org/t/p/w500"
         if let posterPath = movie["poster_path"] as? String {
              let imageURL = NSURL(string: baseURL + posterPath)
-             movieCell.posterView.setImageWith(imageURL as! URL)
+             let imageURLRequest = NSURLRequest(url: imageURL as! URL)
+             movieCell.posterView.setImageWith(
+                imageURLRequest as URLRequest,
+                placeholderImage: nil,
+                success: { (imageRequest, imageResponse, image) -> Void in
+                    if imageResponse != nil {
+                        print("Image was NOT cached, fade in image")
+                        movieCell.posterView.alpha = 0.0
+                        movieCell.posterView.image = image
+                        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                            movieCell.posterView.alpha = 1.0
+                        })
+                    } else {
+                        print("Image was cached so just update the image")
+                        movieCell.posterView.image = image
+                    }
+                },
+                failure: { (imageRequest, imageResponse, error) -> Void in
+             })
         }
-        
         return movieCell
     }
     
@@ -129,16 +139,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         let cell = sender as! UITableViewCell
         let indexPath = moviesTableView.indexPath(for: cell)
         let movie = movies?[(indexPath?.row)!]
         
         let detailViewController = segue.destination as! DetailViewController
         detailViewController.movie = movie
-        
-        print("prepare for segue called")
-
     }
 
 }
