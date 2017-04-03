@@ -14,7 +14,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet weak var moviesTableView: UITableView!
     @IBOutlet weak var networkErrorLabel: UILabel!
-    //fa-exclamation-triangle [&#xf071;]
     
     var movies: [NSDictionary]?
     var refreshControl: UIRefreshControl!
@@ -29,11 +28,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         moviesTableView.dataSource = self
         moviesTableView.delegate = self
         self.networkErrorLabel.isHidden=true
-        getMovies()
+        fetchMovies()
         
     }
     
-    func getMovies() {
+    func fetchMovies() {
         let apiKey = "f8634817a9438344d16fa643adb26970"
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -87,33 +86,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     // Updates the tableView with the new data
     // Hides the RefreshControl
     func refreshControlAction() {
-        getMovies()
+        fetchMovies()
     }
     
-    class func fetchMovies(successCallBack: @escaping (NSDictionary) -> (), errorCallBack: ((Error?) -> ())?) {
-        let apiKey = "f8634817a9438344d16fa643adb26970"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if let error = error {
-                errorCallBack?(error)
-            } else if let data = data,
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                //print(dataDictionary)
-                successCallBack(dataDictionary)
-            }
-        }
-        task.resume()
-    }
-    
-    func successCallBack(dataDictionary: NSDictionary) {
-        
-    }
-    func errorCallBack(error: Error) {
-        
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -148,6 +123,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         return movieCell
     }
     
+    //Remove the gray selection effect
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let cell = sender as! UITableViewCell
@@ -160,8 +140,5 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         print("prepare for segue called")
 
     }
-    
-    
-    
 
 }
