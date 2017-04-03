@@ -32,7 +32,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+Users can view list of movies, view movie details by tapping a movie cell, pull to refresh the movie list, see a network error when WIFI is off and loading state when waiting for API to load movie
+<img src='https://github.com/npari/Flicks/blob/master/FlicksBasic.gif' title='Flicks Basic' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
