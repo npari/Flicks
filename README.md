@@ -16,13 +16,8 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] Add a tab bar for **Now Playing** and **Top Rated** movies.
-- [ ] Implement segmented control to switch between list view and grid view.
-- [ ] Add a search bar.
 - [x] All images fade in.
-- [ ] For the large poster, load the low-res image first, switch to high-res when complete.
 - [x] Customize the highlight and selection effect of the cell.
-- [ ] Customize the navigation bar.
 
 The following **additional** features are implemented:
 
@@ -44,10 +39,6 @@ Images fade Effect
 <br />
 Customized Movie Cell on Select
 <img src='https://github.com/npari/Flicks/blob/master/FlicksImageRed.gif' title='Flicks Red Movie Cell' /> <br /><br />
-
-Unable to load gif here, please find link to the custom selection view here:
-[Customized Movie Cell Select](http://imgur.com/a/pMse6)
-
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
