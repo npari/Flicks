@@ -43,7 +43,7 @@ Images fade Effect
 
 <br />
 Customized Movie Cell on Select
-<img src='http://imgur.com/a/pMse6' title='Flicks Red Movie Cell' /> <br /><br />
+<img src='https://github.com/npari/Flicks/blob/master/FlicksImageRed.gif' title='Flicks Red Movie Cell' /> <br /><br />
 
 Unable to load gif here, please find link to the custom selection view here:
 [Customized Movie Cell Select](http://imgur.com/a/pMse6)
@@ -53,7 +53,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Had some trouble with creating the last gif and uploading it here. Able to do it now.
 
 ## License
 
