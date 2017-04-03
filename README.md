@@ -45,7 +45,8 @@ Images fade Effect
 Customized Movie Cell on Select
 <img src='http://imgur.com/a/pMse6' title='Flicks Red Movie Cell' /> <br /><br />
 
-![Customized Movie Cell Select](http://imgur.com/a/pMse6)
+Unable to load gif here, please find link to the custom selection view here:
+[Customized Movie Cell Select](http://imgur.com/a/pMse6)
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
