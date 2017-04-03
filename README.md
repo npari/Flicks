@@ -35,7 +35,7 @@ Flicks Homescreen <br /><br />
 <img src='https://github.com/npari/Flicks/blob/master/FlicksHome.png' width='350' height='600'/> <br /><br />
 
 Users can view list of movies, view movie details by tapping a movie cell, pull to refresh the movie list, see a network error when WIFI is off and loading state when waiting for API to load movie<br /><br />
-<img src='https://github.com/npari/Flicks/blob/master/FlicksBasic.gif' title='Flicks Basic' width='' alt='Video Walkthrough' /> <br /><br />
+<img src='https://github.com/npari/Flicks/blob/master/FlicksBasic.gif' title='Flicks Basic' alt='Video Walkthrough' /> <br /><br />
 
 Images fade Effect 
 <img src='https://github.com/npari/Flicks/blob/master/FlicksImageFadeIn.gif' title='Flicks Basic' width='' alt='Video Walkthrough' /> <br /><br />
