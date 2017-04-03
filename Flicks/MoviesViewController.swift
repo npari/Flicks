@@ -130,6 +130,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 failure: { (imageRequest, imageResponse, error) -> Void in
              })
         }
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.red
+        movieCell.selectedBackgroundView = backgroundView
+        
         return movieCell
     }
     
